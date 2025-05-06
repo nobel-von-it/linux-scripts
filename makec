@@ -1,0 +1,37 @@
+#!/bin/bash
+
+SOURCE="$HOME/Downloads/Git/linux-scripts/MKSource"
+
+DIST="$(pwd)/Makefile"
+
+if [[ ! -z "$1" ]] 
+then
+    if [[ -f "$1" ]]
+    then 
+        SOURCE="$1"
+    else
+        echo "Provided file is not exist"
+        exit 1
+    fi
+else
+    echo "Using default path to Makefile source\n"
+fi
+
+if [[ -f $DIST ]]
+then
+    echo "Makefile in $(dirname $DIST) already exist"
+    echo "Delete it? (y/n)"
+    read -r del
+    if [[ "$del" = "y" ]]
+    then
+        echo "Deleting"
+        rm $DIST
+    else
+        echo "Moveing"
+        mv $DIST "$DIST.bak"
+    fi
+fi
+
+echo "Copying Makefile from $SOURCE to $DIST"
+
+cp $SOURCE $DIST
