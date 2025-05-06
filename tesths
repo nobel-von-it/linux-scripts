@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DIST="$(pwd)/Makefile"
+
+if [[ ! -f $DIST ]]
+then
+    touch $DIST
+else 
+    mv $DIST "$DIST.bak"
+fi
+
