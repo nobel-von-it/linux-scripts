@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE="$HOME/Downloads/Git/linux-scripts/MKSource"
+SOURCE="$HOME/Downloads/Git/linux-scripts/Makefile"
 
 DIST="$(pwd)/Makefile"
 
