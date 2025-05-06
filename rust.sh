@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 OS=
 VER=
 
