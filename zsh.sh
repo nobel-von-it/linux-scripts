@@ -31,7 +31,7 @@ then
 fi
 
 case "$OS" in
-    "Arch")
+    *"Arch"*)
         yes | sudo pacman -Suy zsh
         ;;
     "Ubuntu")
@@ -42,8 +42,6 @@ case "$OS" in
         echo "Distro not support yet"
         exit 1
         ;;
-
-
-sudo pacman -S zsh
+esac
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
