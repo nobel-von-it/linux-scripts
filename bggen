@@ -1,0 +1,48 @@
+#!/bin/bash
+
+DIST=/usr/local/bin
+NAME=igen
+
+DEFAULT_IMG_PATH=$HOME/Downloads
+PNG=igen_image.png
+
+if [[ ! -z "$1" ]]
+then
+    if [[ "$1" = "d" ]]
+    then
+        echo "Using default configuration"
+        igen $DEFAULT_IMG_PATH
+        feh --bg-scale "$DEFAULT_IMG_PATH/$PNG"
+        exit 0
+    else
+        echo "Usage: bggen [d]"
+        exit 1
+    fi
+fi
+
+if [[ ! -f "$DIST/$NAME" ]]
+then
+    echo "Igen not found"
+    exit 1
+fi
+
+echo "Use default path ($DEFAULT_IMG_PATH)? (y/n)"
+read -r ans
+
+if [[ "$ans" = "y" ]]
+then
+    igen $DEFAULT_IMG_PATH
+    feh --bg-scale "$DEFAULT_IMG_PATH/$PNG"
+else
+    echo "Provide img path"
+    read -r path
+    if [[ -f $path ]]
+    then
+        echo "Path already exists. Use brand new"
+        exit 1
+    else
+        igen $PATH
+        feh --bg-scale "$PATH/$PNG"
+    fi
+fi
+
