@@ -1,3 +1,6 @@
+PREFIX = /usr/local
+
+
 CC = 
 LIBS = 
 INCLUDES = 
@@ -18,7 +21,12 @@ $(TARGET): $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
+install: all
+	mkdir -p ${DESTDIR}${PREFIX}/bin
+	cp -f ${TARGET} ${DESTDIR}${PREFIX}/bin
+	chmod 755 ${DESTDIR}${PREFIX}/bin/${TARGET}
+
 clean:
 	rm -f $(OBJS) $(TARGET)
 
-.PHONY: all clean
+.PHONY: all install clean
