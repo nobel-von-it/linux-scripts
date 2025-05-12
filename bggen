@@ -26,16 +26,14 @@ then
     exit 1
 fi
 
-echo "Use default path ($DEFAULT_IMG_PATH)? (y/n)"
-read -r ans
+read -p "Use default path ($DEFAULT_IMG_PATH)? (y/n) " ans
 
 if [[ "$ans" = "y" ]]
 then
     igen $DEFAULT_IMG_PATH
     feh --bg-scale "$DEFAULT_IMG_PATH/$PNG"
 else
-    echo "Provide img path"
-    read -r path
+    read -p "Provide img path: " path
     if [[ -f $path ]]
     then
         echo "Path already exists. Use brand new"
