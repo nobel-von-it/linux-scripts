@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -e
+
+OS=$(../getos)
+
+read -p "Detected OS $OS. Right? (y/n) " ans
+
+if [[ ! "$ans" = "y" ]] 
+then
+    echo "Bruh! I don't know"
+    exit 1
+fi
+
+case "$OS" in
+    *"Arch"*)
+        # if pacman -Q | grep rustup &>/dev/null
+        # then
+        #     echo "Rustup already installed in system"
+        # else 
+        #     yes | sudo pacman -Suy rustup make gcc clang nodejs npm \
+        #         openssh tmux ripgrep yazi unzip 7zip
+        # fi
+
+        yes | sudo pacman -Suy rustup make gcc clang nodejs npm \
+            openssh tmux ripgrep yazi unzip 7zip
+        ;;
+    "Ubuntu")
+        # if dpkg -s rustup &>/dev/null
+        # then
+        #     echo "Rustup already installed in system"
+        # else
+        #     sudo apt update && sudo apt upgrade -y
+        #     sudo apt install rustup -y
+        # fi
+
+        sudo apt update && sudo apt upgrade -y
+        sudo apt install rustup -y
+        ;;
+    *)
+        echo "Distro not support yet"
+        exit 1
+        ;;
+esac
+
+rustup default stable
+rustup component add rust-analyzer
