@@ -1,0 +1,11 @@
+#!/bin/bash
+
+TID=$(xinput --list | rg -i touchpad | awk -F: '{ split($3, res, " "); split(res[3], id, "="); print id[2] }')
+
+echo "Found touchpad with index $TID"
+
+echo "Start changing general props"
+xinput --set-prop $TID "libinput Natural Scrolling Enabled" 1
+xinput --set-prop $TID "libinput Tapping Enabled" 1
+
+echo "Done!"
