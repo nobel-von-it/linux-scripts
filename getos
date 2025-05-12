@@ -1,0 +1,19 @@
+#!/bin/bash
+
+OS=
+
+if [[ -f /etc/os-release ]]
+then
+    . /etc/os-release
+    OS=$NAME
+elif type lsb_release >/dev/null 2>&1
+then
+    OS=$(lsb_release -si)
+elif [[ -f /etc/lsb-release ]]
+then
+    OS=Debian
+else
+    OS=$(uname -s)
+fi
+
+echo "$OS"
