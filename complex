@@ -2,7 +2,7 @@
 
 set -e
 
-OS=$(../getos)
+OS=$(./getos)
 
 read -p "Detected OS $OS. Right? (y/n) " ans
 
@@ -22,8 +22,12 @@ case "$OS" in
         #         openssh tmux ripgrep yazi unzip 7zip
         # fi
 
-        yes | sudo pacman -Suy rustup make gcc clang nodejs npm \
-            openssh tmux ripgrep yazi unzip 7zip
+        yes | sudo pacman -Suy \
+            make gcc clang \
+            nodejs npm \
+            rustup \
+            openssh unzip 7zip fzf ripgrep \
+            yazi neovim tmux \ 
         ;;
     "Ubuntu")
         # if dpkg -s rustup &>/dev/null
