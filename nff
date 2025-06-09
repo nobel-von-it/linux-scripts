@@ -1,0 +1,31 @@
+#!/bin/bash
+
+file_path=$(fzf --preview="bat --color=always {}")
+
+if [[ -z "$file_path" ]]; then
+    return 1
+fi
+
+abs_file_path=$(realpath "$file_path")
+project_root="$abs_file_path"
+
+while [[ "$project_root" != "/" ]]; do
+    project_root=$(dirname "$project_root")
+
+    if [[ -d "$project_root/.git" || -f "$project_root/Cargo.toml" || 
+        -d "$project_root/.venv" || -d "$project_root/node_modules" ||
+        -f "$project_root/package.json" || -f "$project_root/Makefile" || 
+        -f "$project_root/CMakeLists.txt" || -f "$project_root/setup.py" || 
+        -f "$project_root/.project" || -f "$project_root/pom.xml" ||
+        -f "$project_root/build.gradle" || -f "$project_root/go.mod" ]]; then
+    break
+    fi
+done
+
+if [[ "$project_root" == "/" ]]; then
+    project_root=$(dirname "$abs_file_path")
+fi
+
+rel_file_path="${abs_file_path#$project_root/}"
+
+builtin cd "$project_root" && nvim "$rel_file_path"
