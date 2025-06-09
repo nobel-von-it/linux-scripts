@@ -6,6 +6,10 @@ case "$OS" in
     *"Arch"*)
         yes | sudo pacman -Suy zsh
         ;;
+    *"Fedora"*)
+	sudo dnf upgrade --refresh --best --allowerasing -y
+	sudo dnf install zsh
+	;;
     "Ubuntu")
         sudo apt update && sudo apt upgrade -y
         sudo apt install zsh
