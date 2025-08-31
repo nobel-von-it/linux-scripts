@@ -1,0 +1,58 @@
+#!/usr/bin/fish
+
+set prefix "dnxhr"
+set files
+
+for arg in $argv
+	switch $arg
+		case "--prefix" "-p"
+			set -e argv[1]
+			if set -q argv[1]
+				set prefix $argv[1]
+				set -e argv[1]
+			else
+				echo "ERROR: flag requires a value"
+				exit 1
+			end
+
+		case "--help" "-h"
+			echo "USAGE: davconv [-p PREFIX] FILES..."
+            echo ""
+            echo "Options:"
+            echo "  -p, --prefix PREFIX  set prefix for output files (defaults: dnxhr)"
+            echo "  -h, --help           display this message"
+            exit 0
+
+		case "*"
+			if test -f "$arg"
+				set -a files $arg
+			else 
+				echo "WARN: file `$arg` doesnt exist or inaccessible"
+			end
+	end
+end
+
+if not set -q files[1]
+	echo "ERROR: no files specified"
+	echo "USAGE: davconv [-p PREFIX] FILES..."
+	exit 1
+end
+
+if not command -q ffmpeg
+	echo "ERROR: install `ffmpeg` on your system"
+	exit 1
+end
+
+for ifile in $files 
+	set bname (string replace -r '\.[^.]*$' '' -- $ifile)
+	set ofile "$prefix"_"$bname.mov"
+	
+	echo "converting $ifile -> $ofile"
+	if ffmpeg -i "$ifile" -c:v dnxhd -profile:v dnxhr_lb -c:a pcm_s16le "$ofile" -v error -stats
+        echo "SUCCESSFULLY: $output_file"
+    else
+        echo "CONVERTATION ERROR: $input_file"
+    end
+end
+
+echo "DONE!"
