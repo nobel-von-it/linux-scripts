@@ -1,0 +1,7 @@
+Usefull commands:
+su - (if root user not attempted)
+faillock --user <user> (to check attempts)
+faillock --user <user> --reset (to reset all attempts and unlock user)
+
+After reseting:
+journalctl (for check what is going on)

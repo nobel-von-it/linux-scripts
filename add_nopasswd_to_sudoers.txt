@@ -1,0 +1,10 @@
+EDITOR=vim sudo visudo -f /etc/sudoers.d/<name>
+
+In file:
+user ALL=(ALL) NOPASSWD: full/path/to/script.sh
+
+After exit:
+sudo visudo -c
+
+If chmod error:
+sudo chmod 0440 /etc/sudoers.d/<new-file>

@@ -1,0 +1,30 @@
+[packages]
+syncthing=true
+tmux=true
+vim=true
+alacritty=true
+ripgrep=true
+eza=true
+zed=true
+telegram-desktop=true
+openssh=true
+tar=true
+firefox=true
+discord=true
+nushell=true
+steam=true
+gimp=true
+godot=true
+mpv=true
+obs-studio=true
+obsidian=true
+ttf-jetbrains-mono-nerd=true
+noto-fonts-cjk=true
+# add, remove packages or change above to false
+
+[scripts]
+sshgit = { enable = true, name = "nobel-von-it", email = "maksimdavydenko12@gmail.com"}
+rustup = { enable = true, analyzer = true}
+
+[services]
+zapret = { enable = true }
